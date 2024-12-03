@@ -7,5 +7,12 @@ import { Student } from '../student.model';
   styleUrls: ['./student-list.component.scss']
 })
 export class StudentListComponent {
-  Students: Student[] = [{id:1 , subject:"math"},{id:2 , subject:"programming"},{id:3 , subject:"pysichology"}]
+  
+  Students: Student[] = [{name:"Ron" , subject:"math"},{name:"Sara" , subject:"programming"},{name:"Rachel" , subject:"pysichology"}]
+  DeleteFunc(student:Student){
+  let indexToDelete = this.Students.indexOf(student)
+  this.Students.splice(indexToDelete,1);
+  }
+
+
 }
