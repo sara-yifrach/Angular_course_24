@@ -1,14 +1,29 @@
 <ul class="list-group">
-    <li *ngFor="let student of Students" class="list-group-item">
+    <li *ngFor="let student of Students" class="list-group-item"
+    [ngClass]="{'active':!(selectedStudent && selectedStudent.name == student.name),
+        'list-group-item-success':student.average>90
+    }"
+    >
         <div class="row">
              <div class="col-1">{{student.name}}</div>
              <div class="col-3">{{student.subject}}</div>
              <div class="col-2">
+                <button (click)="ShowDetails(student)">Show Student Details</button> 
+            </div>
+             <div class="col-2">
                 <button (click)="DeleteFunc(student)">Delete Student</button>
              </div>
-
-
         </div>
-        
+ 
     </li>
 </ul>
+<br>
+<button class="btn btn-primary" (click)="ShowNewStudentDetails()">Add New Student</button>
+
+<br><br>
+
+<!-- <app-student-details [student]="selectedStudent" (onSaveNewStudent)="addNewStudent($event)"></app-student-details>  -->
+<app-student-details-form-md [student]="selectedStudent" (onSaveStudent)="addNewStudent($event)"></app-student-details-form-md>
+
+
+

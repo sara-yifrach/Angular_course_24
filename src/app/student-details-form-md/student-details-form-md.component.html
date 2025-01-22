@@ -1,0 +1,54 @@
+<div class="card" *ngIf="student else noStudent">
+    <div class="card-body">
+        <form [formGroup]="studentForm">
+            <div class="form-group">
+                <label for="name">Student Name:</label>
+                <input type="text" class="form-control" id="name" formControlName="name">
+                <ng-container *ngIf="studentForm && studentForm.controls && studentForm.controls['name']?.errors">
+                <!-- <ng-container *ngIf="studentForm.controls['name'].errors"> -->
+                    <div class="alert alert-danger" *ngIf="studentForm.controls['name']?.errors && studentForm.controls['name'].errors
+                    &&studentForm.controls['name'].errors['required']">this field is required!</div>
+                    <div class="alert alert-danger" *ngIf="studentForm.controls['name']?.errors && studentForm.controls['name'].errors
+                    &&studentForm.controls['name'].errors['minlength']">this field must be at least 3 chars!</div>
+                </ng-container>
+            </div>
+            <div class="form-group">
+                <label for="description">Subject:</label>
+                <input type="text" class="form-control" id="description" formControlName="description">
+            </div>
+            <div class="form-group">
+                <label for="Userid">User:</label>
+                <select class="form-control" formControlName="Userid">
+                    <option *ngFor="let user of usersList" [value]="user.id">{{user.name}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="priority">Student Priority:</label>
+                <br>
+                <input type="radio" value="1"name="priority" formControlName="priority"/>high<br>
+                <input type="radio" value="2"name="priority"formControlName="priority"/>medium<br>
+                <input type="radio" value="3"name="priority"formControlName="priority"/>low<br>
+
+            </div>
+        <div [ngSwitch]="studentForm.controls['priority'].value">
+            <div *ngSwitchCase="1">You Are Very Excelent</div>
+            <div *ngSwitchCase="2">You Are Good</div>
+            <div *ngSwitchCase="3">You Have To Improve</div>
+            <div *ngSwitchDefault>what is your level?</div>
+
+        </div>
+            <button type="submit" class="btn btn-primary" (click)="saveNewStudent()" [disabled]="!studentForm?.valid">Save</button>
+
+            <!-- Student Details
+        <br>
+        {{student.name}}
+        {{student.subject}} -->
+        </form>
+
+    </div>
+</div>
+<ng-template #noStudent>
+    <div class="card">
+        No Student To Dispaly.
+    </div>
+</ng-template>

@@ -1,0 +1,34 @@
+<div class="card" *ngIf="student else noStudent">
+    <div class="card-body">
+        <form #studentForm="ngForm">
+        <div class="form-group">
+            <label for="name">Student Name:</label>
+            <input type="text" class="form-control" id="name" name="studentName" [(ngModel)]="student.name"
+             #studentName required minlength="3" #studentNameModel="ngModel">
+            <ng-container *ngIf="studentNameModel.errors">
+                <div class="alert alert-danger" *ngIf="studentNameModel.errors['required']">The field is required!</div>
+                <div class="alert alert-danger" *ngIf="!studentNameModel.errors
+            && studentNameModel.errors['required']" >The field is at least 3 chars!</div>
+            </ng-container>
+        </div>
+        <div class="form-group">
+            <label for="description">Subject:</label>
+            <input type="text" class="form-control" id="description" name="studentDescription"
+                [(ngModel)]="student.subject" 
+                #studentName required minlength="3" #studentNameModel="ngModel">
+        </div>
+
+        <button type="submit" class="btn btn-primary" (click)="saveNewStudent()" [disabled]="!studentForm.valid">Save</button>
+    </form>
+
+        <!-- Student Details
+        <br>
+        {{student.name}}
+        {{student.subject}} -->
+    </div>
+</div>
+<ng-template #noStudent>
+    <div class="card">
+        No Student To Dispaly.
+    </div>
+</ng-template>
